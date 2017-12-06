@@ -7,7 +7,7 @@ attr_reader(:id)
 attr_accessor(:artist_name)
 
   def initialize(options)
-    @id = options['id'].to_i
+    @id = options['id'].to_i if options['id']
     @artist_name = options['artist_name']
   end
 
@@ -20,11 +20,32 @@ attr_accessor(:artist_name)
     @id = result[0]['id'].to_i()
   end
 
-  def self.all()
+  def update()
+    binding.pry
+    sql = "UPDATE artists
+    SET (artist_name) = ($1) WHERE id = $2"
+    binding.pry
+    values = [@artist_name, @id]
+    SqlRunner.run(sql, values)
+  end
+
+  def delete()
+    sql = "DELETE FROM artists WHERE id = $1"
+    values = [@id]
+    SqlRunner.run(sql,values)
+  end
+
+  def Artist.all()
 
     artists = SqlRunner.run("SELECT * FROM artists")
 
     return artists.map {|artist| Artist.new(artist)}
+
+  end
+
+  def Artist.delete_all()
+
+    SqlRunner.run("DELETE FROM artists")
 
   end
 
