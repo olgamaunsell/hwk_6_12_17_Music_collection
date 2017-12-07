@@ -1,5 +1,6 @@
 require('pry-byebug')
 require_relative('../db/sql_runner.rb')
+require_relative('./artist.rb')
 
 class Album
 
@@ -40,5 +41,9 @@ attr_accessor(:title, :genre, :artist_id)
 
     SqlRunner.run("DELETE FROM albums")
 
+  end
+
+  def find_artist()
+    return Artist.find(@artist_id)
   end
 end

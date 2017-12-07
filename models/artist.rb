@@ -23,7 +23,7 @@ attr_accessor(:artist_name)
   def update()
     binding.pry
     sql = "UPDATE artists
-    SET (artist_name) = ($1) WHERE id = $2"
+    SET artist_name = ($1) WHERE id = $2"
     binding.pry
     values = [@artist_name, @id]
     SqlRunner.run(sql, values)
@@ -46,6 +46,17 @@ attr_accessor(:artist_name)
   def Artist.delete_all()
 
     SqlRunner.run("DELETE FROM artists")
+
+  end
+
+  def Artist.find(id)
+    sql = "SELECT * FROM artists WHERE id = $1"
+    values = [id]
+    sql_result = SqlRunner.run(sql,values)
+
+    found_artist = sql_result.map {|artist| Artist.new(artist)}
+
+    return found_artist[0]
 
   end
 

@@ -15,7 +15,7 @@ artist1.save()
 artist1.artist_name = "Stereophonics"
 
 #.update not working
-# artist1.update()
+artist1.update()
 
 artist2 = Artist.new({
   'artist_name' => 'Gorillaz'
@@ -63,8 +63,11 @@ artists = Artist.all()
 
 # List all the albums they have by an artist
 
+
+
 # Show the artist any album belongs to
 
+find_artist = Artist.find(album4.artist_id)
 
 binding.pry
 nil
